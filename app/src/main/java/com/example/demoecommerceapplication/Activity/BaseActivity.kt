@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.demoecommerceapplication.MyUtils.Util
 import com.example.demoecommerceapplication.R
 import com.example.demoecommerceapplication.adapter.RecyclerAdapter
+import com.example.demoecommerceapplication.adapter.RecyclerAdapter2
 import com.example.demoecommerceapplication.model.DataItem
+import com.example.demoecommerceapplication.model.DataItem2
+import com.example.demoecommerceapplication.model.DataX
 import com.example.demoecommerceapplication.model.Reddi
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,7 +25,7 @@ class BaseActivity : AppCompatActivity() {
     lateinit var recyclerView : RecyclerView
 
     lateinit var context : Context
-    lateinit var reddi : List<Reddi>
+    lateinit var dataX : List<DataX>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,24 +42,26 @@ class BaseActivity : AppCompatActivity() {
     }
 
     private fun ApiCall() {
-        Util.getAPiInterface()?.get_category(
-            "CUS_00002",
-            "Gurugram",
-            "122001"
-        )?.enqueue(object : Callback<DataItem> {
+        var id1 : String = "CUS_000034"
+        var  id2 : String  = "4"
+
+        Util.getAPiInterface()?.get_sub_category(
+            id1,
+            id2
+        )?.enqueue(object : Callback<DataItem2> {
             override fun onResponse(
-                call: Call<DataItem>,
-                response: Response<DataItem>
+                call: Call<DataItem2>,
+                response: Response<DataItem2>
             ) {
                 Log.d("response",""+response.body())
-                reddi = response.body()!!.Reddi
-                val recyclerAdapter : RecyclerAdapter = RecyclerAdapter(context,reddi)
-                recyclerView.adapter = recyclerAdapter
+                dataX = response.body()!!.data
+                val recyclerAdapter2 : RecyclerAdapter2 = RecyclerAdapter2(context,dataX)
+                recyclerView.adapter = recyclerAdapter2
                 recyclerView.layoutManager = GridLayoutManager(context,4)
             }
 
             override fun onFailure(
-                call: Call<DataItem>,
+                call: Call<DataItem2>,
                 t: Throwable
             ) {
 

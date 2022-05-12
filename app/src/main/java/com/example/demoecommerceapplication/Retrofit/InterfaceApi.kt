@@ -1,10 +1,9 @@
 package com.example.demoecommerceapplication.Retrofit
 
 import com.example.demoecommerceapplication.model.DataItem
+import com.example.demoecommerceapplication.model.DataItem2
 import retrofit2.Call
-import retrofit2.http.POST
-import retrofit2.http.Query
-import retrofit2.http.Url
+import retrofit2.http.*
 
 interface InterfaceApi {
 
@@ -17,12 +16,12 @@ interface InterfaceApi {
         ): Call<DataItem>
 
 
+        @FormUrlEncoded
         @POST("Api/sub_category")
         fun get_sub_category(
-            @Query("cus_id") cus_id: String,
-            @Query("city") city: String,
-            @Query("sPin") sPin: String
-        ): Call<DataItem>
+            @Field("cus_id") cus_id: String,
+            @Field("cat_id") cat_id: String
+        ): Call<DataItem2>
 
 
 
